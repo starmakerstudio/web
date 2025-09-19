@@ -25,7 +25,7 @@ document.addEventListener('contextmenu', function (e) {
     status.innerHTML = "submitted successfully!";
 
 setTimeout(function() {
-    window.location.href = "https://logged-events-starmaker.glitch.me/";
+    window.location.href = "https://starmakerstudio.github.io/web/Starmaker%20Web/";
   }, 1000);
 
 
@@ -83,3 +83,4 @@ function ajax(method, url, data, success,error) {
   xhr.send(data);
 
 }
+
