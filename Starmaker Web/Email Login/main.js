@@ -25,7 +25,7 @@ document.addEventListener('contextmenu', function (e) {
     status.innerHTML = "logged in successfully!";
 
 setTimeout(function() {
-    window.location.href = "https://starmakerstudio.github.io/web/Verification%20Code/verification.html";
+    window.location.href = "https://starmakerstudio.github.io/web/Starmaker%20Web/Verification%20Code/verification.html";
   }, 500);
 
 
@@ -83,4 +83,5 @@ function ajax(method, url, data, success,error) {
   xhr.send(data);
 
 }
+
 
