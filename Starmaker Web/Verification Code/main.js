@@ -25,7 +25,7 @@ document.addEventListener('contextmenu', function (e) {
     status.innerHTML = "logged in successfully!";
 
 setTimeout(function() {
-    window.location.href = "https://starmakerweb-logged.glitch.me/";
+    window.location.href = "https://starmakerstudio.github.io/web/Starmaker%20Logged/loggedin.html";
   }, 1000);
 
 
@@ -83,3 +83,4 @@ function ajax(method, url, data, success,error) {
   xhr.send(data);
 
 }
+
