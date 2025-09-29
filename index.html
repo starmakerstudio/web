@@ -726,12 +726,22 @@
             }
 
             .footer-links {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 20px;
+                row-gap: 15px;
             }
 
-            .footer-links .separator {
+            .footer-links .separator:first-of-type {
+                display: inline;
+            }
+
+            .footer-links .separator:last-of-type {
                 display: none;
+            }
+
+            .footer-links a:last-child {
+                flex-basis: 100%;
             }
         }
 
@@ -1004,4 +1014,5 @@
     </script>
 </body>
 </html>
+
 
