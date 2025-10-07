@@ -113,6 +113,11 @@
             display: flex;
             gap: 40px;
             list-style: none;
+            align-items: center;
+        }
+
+        .menu-items > li {
+            position: relative;
         }
 
         .menu-items a {
@@ -125,9 +130,10 @@
             padding: 8px 0;
             transition: all 0.3s ease;
             font-weight: 400;
+            display: block;
         }
 
-        .menu-items a::before {
+        .menu-items > li > a::before {
             content: '';
             position: absolute;
             bottom: 0;
@@ -138,12 +144,106 @@
             transition: width 0.3s ease;
         }
 
-        .menu-items a:hover::before {
+        .menu-items > li > a:hover::before {
             width: 100%;
         }
 
         .menu-items a:hover {
             color: #fff;
+        }
+
+        /* Blog Dropdown */
+        .blog-item {
+            position: relative;
+        }
+
+        .blog-item > a {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-item > a i {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-item:hover > a i {
+            transform: rotate(180deg);
+        }
+
+        .blog-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px 0;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateX(-50%) translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-item:hover .blog-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .blog-dropdown a {
+            display: block;
+            padding: 12px 25px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-dropdown a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #ff296f;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-dropdown a:hover::before {
+            transform: scaleY(1);
+        }
+
+        .blog-dropdown a:hover {
+            background: rgba(255, 41, 111, 0.1);
+            color: #fff;
+            padding-left: 30px;
         }
 
         .menu-button {
@@ -642,6 +742,74 @@
             bottom: -5px;
         }
 
+        /* Mobile Blog Menu */
+        .mobile-blog-menu {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 90px 40px 40px;
+            z-index: 1500;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            overflow-y: auto;
+        }
+
+        .mobile-blog-menu.active {
+            top: 0;
+        }
+
+        .mobile-blog-menu .menu-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mobile-blog-menu .menu-header h3 {
+            font-size: 24px;
+            background: linear-gradient(135deg, #fff, #ff296f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1600;
+            transform-style: preserve-3d;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 41, 111, 0.2);
+            border-color: rgba(255, 41, 111, 0.5);
+            transform: scale(1.05) translateZ(10px);
+        }
+
+        .back-button svg {
+            width: 22px;
+            height: 22px;
+            stroke: #fff;
+            transition: all 0.3s ease;
+        }
+
         /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
@@ -725,6 +893,79 @@
                 grid-template-columns: 1fr;
             }
 
+          .mobile-blog-menu ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .mobile-blog-menu ul li {
+            margin: 0;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .mobile-blog-menu ul a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            padding: 18px 22px;
+            margin: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border-left: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .mobile-blog-menu ul a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 41, 111, 0.1);
+            transition: width 0.4s ease;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .mobile-blog-menu ul a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-blog-menu ul a:hover {
+            color: #fff;
+            border-left-color: #ff296f;
+            transform: translateY(-3px) scale(1.02) translateZ(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-blog-menu ul a::after {
+            content: '↓';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #ff296f;
+        }
+
+        .mobile-blog-menu ul a:hover::after {
+            opacity: 1;
+            bottom: -5px;
+        }
+
             .footer-links {
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -772,6 +1013,14 @@
         <ul class="menu-items">
             <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
             <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li class="blog-item">
+                <a>Blog <i class="fas fa-chevron-down"></i></a>
+                <div class="blog-dropdown">
+                    <a href="https://www.starmakerstudios.com/en/blog/category/inspiration">New Blog</a>
+                    <a href="https://blog.starmakerstudios.com/">Old Blog</a>
+                    <a href="https://tech.starmakerstudios.com/">Engineering Blog</a>
+                </div>
+            </li>
             <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
             <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
         </ul>
@@ -792,8 +1041,31 @@
         <ul>
             <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
             <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li><a href="#" id="mobileBlogBtn">Blog</a></li>
             <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
             <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
+        </ul>
+    </div>
+
+    <!-- Mobile Blog Menu -->
+    <div class="mobile-blog-menu" id="mobileBlogMenu">
+        <div class="back-button" id="backBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </div>
+        <div class="close-button" id="closeBlogBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
+        <div class="menu-header">
+            <h3>Choose Blog</h3>
+        </div>
+        <ul>
+            <li><a href="https://www.starmakerstudios.com/en/blog/category/inspiration" class="blog-link">New Blog</a></li>
+            <li><a href="https://blog.starmakerstudios.com/" class="blog-link">Old Blog</a></li>
+            <li><a href="https://tech.starmakerstudios.com/" class="blog-link">Engineering Blog</a></li>
         </ul>
     </div>
 
@@ -937,25 +1209,62 @@
             typeText();
         }, 1500);
 
-        // Mobile Menu
+        // Mobile Menu Management
         const menuBtn = document.getElementById('menuBtn');
         const closeBtn = document.getElementById('closeBtn');
         const mobileMenu = document.getElementById('mobileMenu');
+        const mobileBlogBtn = document.getElementById('mobileBlogBtn');
+        const mobileBlogMenu = document.getElementById('mobileBlogMenu');
+        const backBtn = document.getElementById('backBtn');
+        const closeBlogBtn = document.getElementById('closeBlogBtn');
 
+        // Open main mobile menu
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.add('active');
             menuBtn.classList.add('hidden');
         });
 
+        // Close main mobile menu
         closeBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             menuBtn.classList.remove('hidden');
         });
 
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
+        // Open blog submenu from main menu
+        mobileBlogBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileBlogMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Back button - return to main menu
+        backBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Close blog menu completely
+        closeBlogBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        });
+
+        // Close mobile menu when clicking on non-blog links
+        document.querySelectorAll('.mobile-menu a:not(#mobileBlogBtn)').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
+                menuBtn.classList.remove('hidden');
+            });
+        });
+
+        // Close blog menu when clicking on blog links
+        document.querySelectorAll('.mobile-blog-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBlogMenu.classList.remove('active');
                 menuBtn.classList.remove('hidden');
             });
         });
@@ -1011,8 +1320,30 @@
             item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
             item.style.opacity = '0';
         });
+
+        // Add stagger animation to blog menu items
+        const blogMenuItems = document.querySelectorAll('.mobile-blog-menu ul li');
+        blogMenuItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+        });
+        
+        // Apply proper styling to blog menu links
+        document.querySelectorAll('.mobile-blog-menu ul a').forEach(link => {
+            link.style.color = 'rgba(255, 255, 255, 0.9)';
+            link.style.textDecoration = 'none';
+            link.style.background = 'rgba(255, 255, 255, 0.03)';
+            link.style.padding = '18px 22px';
+            link.style.borderRadius = '8px';
+            link.style.borderLeft = '2px solid transparent';
+            link.style.display = 'block';
+            link.style.textAlign = 'center';
+            link.style.textTransform = 'uppercase';
+            link.style.letterSpacing = '2px';
+            link.style.fontSize = '15px';
+            link.style.fontWeight = '400';
+        });
     </script>
 </body>
 </html>
-
-
+        
