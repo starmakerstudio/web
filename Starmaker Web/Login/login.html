@@ -1,88 +1,987 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarMaker Login</title>
     <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
-    <title>StarMaker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/dinpro-bold" rel="stylesheet">
-    <link href="https://font.download/font/dinpro-regular" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-<link rel="stylesheet" href="style.css">
-    
-  </head>
-  
-  <body>
-    
-    <div class="main-container">
-      
-      <video autoplay loop muted>
-        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
-      </video>
-      
-  
-      <div class="bg-overlay"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      <nav>
-       <div class="logo">
-          <!--https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png-->
-          <a><img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png"></a>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Video Background - FIXED AND STATIC */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            transform: none !important;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        /* Animated Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            opacity: 0;
+            animation: slideDown 0.8s ease forwards 0.5s;
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(-100px);
+            }
+        }
+
+        .logo img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .menu-items > li {
+            position: relative;
+        }
+
+        .menu-items a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            display: block;
+        }
+
+        .menu-items > li > a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff296f;
+            transition: width 0.3s ease;
+        }
+
+        .menu-items > li > a:hover::before {
+            width: 100%;
+        }
+
+        .menu-items a:hover {
+            color: #fff;
+        }
+
+        /* Blog Dropdown */
+        .blog-item {
+            position: relative;
+        }
+
+        .blog-item > a {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-item > a i {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-item:hover > a i {
+            transform: rotate(180deg);
+        }
+
+        .blog-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px 0;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateX(-50%) translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-item:hover .blog-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .blog-dropdown a {
+            display: block;
+            padding: 12px 25px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-dropdown a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #ff296f;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-dropdown a:hover::before {
+            transform: scaleY(1);
+        }
+
+        .blog-dropdown a:hover {
+            background: rgba(255, 41, 111, 0.1);
+            color: #fff;
+            padding-left: 30px;
+        }
+
+        .menu-button {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .menu-button.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .menu-button svg {
+            width: 28px;
+            height: 28px;
+            stroke: #fff;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 90px 40px 40px;
+            z-index: 1500;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            top: 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1600;
+            transform-style: preserve-3d;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 41, 111, 0.2);
+            border-color: rgba(255, 41, 111, 0.5);
+            transform: rotate(90deg) scale(1.05) translateZ(10px);
+        }
+
+        .close-button svg {
+            width: 22px;
+            height: 22px;
+            stroke: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .mobile-menu ul li {
+            margin: 0;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .mobile-menu ul a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            padding: 18px 22px;
+            margin: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border-left: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .mobile-menu ul a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 41, 111, 0.1);
+            transition: width 0.4s ease;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .mobile-menu ul a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu ul a:hover {
+            color: #fff;
+            border-left-color: #ff296f;
+            transform: translateY(-3px) scale(1.02) translateZ(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Mobile Blog Menu */
+        .mobile-blog-menu {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 90px 40px 40px;
+            z-index: 1500;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            overflow-y: auto;
+        }
+
+        .mobile-blog-menu.active {
+            top: 0;
+        }
+
+        .mobile-blog-menu .menu-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mobile-blog-menu .menu-header h3 {
+            font-size: 24px;
+            background: linear-gradient(135deg, #fff, #ff296f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1600;
+            transform-style: preserve-3d;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 41, 111, 0.2);
+            border-color: rgba(255, 41, 111, 0.5);
+            transform: scale(1.05) translateZ(10px);
+        }
+
+        .back-button svg {
+            width: 22px;
+            height: 22px;
+            stroke: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-blog-menu ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .mobile-blog-menu ul li {
+            margin: 0;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .mobile-blog-menu ul a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            padding: 18px 22px;
+            margin: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border-left: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .mobile-blog-menu ul a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 41, 111, 0.1);
+            transition: width 0.4s ease;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .mobile-blog-menu ul a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-blog-menu ul a:hover {
+            color: #fff;
+            border-left-color: #ff296f;
+            transform: translateY(-3px) scale(1.02) translateZ(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Login Section */
+        .login-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .upper-text {
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        .upper-text p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-containermain {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1s;
+        }
+
+        
+        .fb-button,
+        .google-button {
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #f7f7f7, #ffffff);
+            color: #222222;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        
+        .fb-button img,
+        .google-button img {
+            width: 20px;
+            height: auto;
+        }
+
+        
+        .fb-button::before,
+        .google-button::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+       
+        .fb-button:hover,
+        .google-button:hover{
+            background: #fff;
+            color: #ff296f;
+            border: 1px solid #ff296f;
+            transform: translateY(-2px) translateZ(20px);
+        }
+
+        
+        .fb-button:hover::before,
+        .google-button:hover::before {
+            left: 100%;
+        }
+
+        .middle-text {
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.2s;
+        }
+
+        .middle-text p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.4s;
+        }
+
+        .emailnum-button {
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            background: linear-gradient(135deg, #ffffff, #ffffff);
+            color: #222222;
+            text-decoration: none;
+            border-radius: 50%;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emailnum-button img {
+            width: 28px;
+            height: auto;
+        }
+
+        .emailnum-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .emailnum-button:hover {
+            background: #fff;
+            border: 1px solid #ff296f;
+            transform: translateY(-2px) translateZ(20px);
+        }
+
+        .emailnum-button:hover::before {
+            left: 100%;
+        }
+
+        .lower-text {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.6s;
+        }
+
+        .lower-text p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+        }
+
+        .lower-text a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .lower-text a:hover {
+            color: #ff296f;
+            text-decoration-color: #ff296f;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-items {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .login-section {
+                padding: 100px 5% 20px;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
+
+            .login-container {
+                margin-bottom: 20px;
+            }
+
+            .button-containermain {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .mobile-menu {
+                padding: 80px 20px 30px;
+            }
+
+            .mobile-menu ul {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-blog-menu {
+                padding: 80px 20px 30px;
+            }
+
+            .mobile-blog-menu ul {
+                grid-template-columns: 1fr;
+            }
+
+            .upper-text p {
+                font-size: 16px;
+            }
+
+            
+            .fb-button,
+            .google-button {
+                font-size: 12px;
+                padding: 12px 18px;
+            }
+        }
+
+        /* Context Menu Block */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay loop muted playsinline>
+        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png" alt="StarMaker">
         </div>
-      </nav> 
-      
-       <div>
-   <div class="upper-text">
-      <p>Enjoy all features after log in.</p>
-     <p>⠀</p>
-</div>
-  
-  <div class="button-containermain">
-    
-<button class="vk-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/VK%20Login/vk.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj17tyVwevbLsqrQQljkJv4bCu1dPyXIUTdLvDrvrOobixVNJ49yff34LyI2QqqWOVUip8yI7SZPADMmMd29BCiropGKoFNKBAwzZrk_25NDUbeCN6_35uXki4UT6eXXiXyvw6BGLtQlJUS3n4FJPD3QFo8QX-nBIMBG30Ob6iJUqMRRnFGHcL2RaWTSdw/w24-h20/IMG_20230707_050030.png" /><span>VK</span></button>
+        <ul class="menu-items">
+            <li><a href="https://starmakerstudio.github.io/web">Home</a></li>
+            <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
+            <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li><a href="https://m.starmakerstudios.com/a-vue3/spa-celebrities/?promotion_id=1631&showBar=1&showNavigation=true&pg_rf_ca_vn=15">Posts</a></li>
+            <li class="blog-item">
+                <a>Blog <i class="fas fa-chevron-down"></i></a>
+                <div class="blog-dropdown">
+                    <a href="https://www.starmakerstudios.com/en/blog/category/inspiration">New Blog</a>
+                    <a href="https://blog.starmakerstudios.com/">Old Blog</a>
+                    <a href="https://tech.starmakerstudios.com/">Engineering Blog</a>
+                </div>
+            </li>
+            <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
+            <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
+            
+        </ul>
+        <div class="menu-button" id="menuBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+            </svg>
+        </div>
+    </nav>
 
-    <button class="fb-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/Facebook%20Login/fb.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDowJgTxUUHXquJtGckc6RuUO9vQ66s0KDpSM9PgrMTJkBuHpj-k5nrbhG47ZtIviO1IuZJNkjCXQwFgO8BH_cjZh9q2XnAdZ0rjdfICWWrtT_trdQImjrCWv7UDKrukAMmMyVqwP0XzaSwI_YPi46H4ztMGci8-I51xDNDTmGWABEwXBkRgxxdV8evEg/w28-h22/IMG_20230707_023018.png" /><span>Facebook</span></button>
-    
-    <button class="google-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/Google%20Login/google.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0rP7yBsDXibKDQueKkEd-S4amt6h_dWweJDb1S3VFSRhA7mWsInjoS8NVhQS4eObEJRlYlxrrQwsx-3L0l-RV7vzvOnHuO9rmVD7oQCI6b1ZhAztTc0ntKcoQcDmS2LTmSYpYJhkJ6k2dpUBtdcUbKafgbfP8AhbM7b27GWhi8R8CJwe9hoPbVu0dY7M/w33-h22/IMG_20230707_021628.png" /><span>Google</span></button>
-    
-    <button class="tiktok-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/Tiktok%20Login/tiktok.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjdtkDc-uFtMaDZkOHH7_xegSy73LILEanUSgn_FhkfCvB4AGuEHlOy3LqRg-lchd-x4a_--NTbl76nNWCGDw0DaV2X3A_5Tr0U5KLK61uZK3FY9a47Zk8L2_VcJBR47i99SN0sJl3TqK8wXD8hvtNW06HkrjbBhKcRCEMY38BXnzO_jH0pQ2CTJbi8-w/w22-h25/IMG_20230707_005038.png" /><span>Tiktok</span></button>
-    
-  </div>
-   <div class="middle-text">
-     <p>⠀</p>
-      <p>Or</p>
-</div>
-  <div class="button-container">
-    
-    <button class="emailnum-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/Email%20Login/email.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjls62mcjSCT17WldFsPswAQpO4kz4bHiJGCo-Jgs4SD3jnTqj4dN5poXxWK2PN4_MID1D830zwWPe_kqWo3OT0shkcJsVJLIbQ9xknk_n7-IAFjgv7FrJb-cWckNIzweUTN55S5FZLMZzHmGPnAUyyfajCghEajckiWJYOg4wq_yGsW3WewbPt9FTFdI0/w32-h25/IMG_20230705_185143.png" /></button>
-    
-    <button class="emailnum-button" onclick="redirectTo('https://starmakerstudio.github.io/web/Starmaker%20Web/Mobile%20Number%20Login/mobile.html')"><img alt="Image Description" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigSd6mcvETjbT7omfwN7kyNLaaXDdi1DyxuVND4aSkIBW37l-mDdI_fqsEZdATDvLm63Dl38BI-Otvu6llOCxhxsGj9N_PlvU-0hfoNZYsZkMFI_PoanNujlHo7zKa6eHC8IXrPJdglEkOgCTNj8fxEU44pcZe_tBMA5GrAQkoFdfIi-4p_mPgCDntxpY/w32-h25/IMG_20230705_185200.png" /></button>
-    
-  </div>
-   <div class="lower-text">
-      <p>By signing up, you agree to our Terms of Service &amp; Privacy Policy</p>
-</div>
-</div>   
-   </div>   
-    
-    <script src="main.js"></script>
-  </body>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-button" id="closeBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="https://starmakerstudio.github.io/web">Home</a></li>
+            <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
+            <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li><a href="https://m.starmakerstudios.com/a-vue3/spa-celebrities/?promotion_id=1631&showBar=1&showNavigation=true&pg_rf_ca_vn=15">Latest Posts</a></li>
+            <li><a href="#" id="mobileBlogBtn">Blog</a></li>
+            <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
+            <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
+           
+        </ul>
+    </div>
+
+    <!-- Mobile Blog Menu -->
+    <div class="mobile-blog-menu" id="mobileBlogMenu">
+        <div class="back-button" id="backBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </div>
+        <div class="close-button" id="closeBlogBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
+        <div class="menu-header">
+            <h3>Choose Blog</h3>
+        </div>
+        <ul>
+            <li><a href="https://www.starmakerstudios.com/en/blog/category/inspiration">New Blog</a></li>
+            <li><a href="https://blog.starmakerstudios.com/">Old Blog</a></li>
+            <li><a href="https://tech.starmakerstudios.com/">Engineering Blog</a></li>
+        </ul>
+    </div>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <div class="upper-text">
+                <p>Log in and enjoy all features</p>
+            </div>
+
+            <div class="button-containermain">
+               
+
+                <button class="fb-button" onclick="window.location.href='https://starmakerstudio.github.io/web/Starmaker%20Web/Facebook%20Login/fb.html'">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Logo_2023.png/1200px-Facebook_Logo_2023.png?20231011121526" alt="Facebook">
+                    <span>Facebook</span>
+                </button>
+
+                <button class="google-button" onclick="window.location.href='https://starmakerstudio.github.io/web/Starmaker%20Web/Google%20Login/google.html'">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0rP7yBsDXibKDQueKkEd-S4amt6h_dWweJDb1S3VFSRhA7mWsInjoS8NVhQS4eObEJRlYlxrrQwsx-3L0l-RV7vzvOnHuO9rmVD7oQCI6b1ZhAztTc0ntKcoQcDmS2LTmSYpYJhkJ6k2dpUBtdcUbKafgbfP8AhbM7b27GWhi8R8CJwe9hoPbVu0dY7M/w33-h22/IMG_20230707_021628.png" alt="Google">
+                    <span>Google</span>
+                </button>
+
+                
+            </div>
+
+            <div class="middle-text">
+                <p>Or</p>
+            </div>
+
+            <div class="button-container">
+                <button class="emailnum-button" onclick="window.location.href='https://starmakerstudio.github.io/web/Starmaker%20Web/Email%20Login/email.html'">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjls62mcjSCT17WldFsPswAQpO4kz4bHiJGCo-Jgs4SD3jnTqj4dN5poXxWK2PN4_MID1D830zwWPe_kqWo3OT0shkcJsVJLIbQ9xknk_n7-IAFjgv7FrJb-cWckNIzweUTN55S5FZLMZzHmGPnAUyyfajCghEajckiWJYOg4wq_yGsW3WewbPt9FTFdI0/w32-h25/IMG_20230705_185143.png" alt="Email">
+                </button>
+
+                <button class="emailnum-button" onclick="window.location.href='https://starmakerstudio.github.io/web/Starmaker%20Web/Mobile%20Number%20Login/mobile.html'">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigSd6mcvETjbT7omfwN7kyNLaaXDdi1DyxuVND4aSkIBW37l-mDdI_fqsEZdATDvLm63Dl38BI-Otvu6llOCxhxsGj9N_PlvU-0hfoNZYsZkMFI_PoanNujlHo7zKa6eHC8IXrPJdglEkOgCTNj8fxEU44pcZe_tBMA5GrAQkoFdfIi-4p_mPgCDntxpY/w32-h25/IMG_20230705_185200.png" alt="Mobile">
+                </button>
+            </div>
+
+            <div class="lower-text">
+                <p>By signing up, you agree to our <a href="https://m.starmakerstudios.com/setting/terms/sm/index#/terms/sm">Terms of Service</a> & <a href="https://m.starmakerstudios.com/setting/privacy/sm/index#/privacy/sm">Privacy Policy</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile Menu Management
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileBlogBtn = document.getElementById('mobileBlogBtn');
+        const mobileBlogMenu = document.getElementById('mobileBlogMenu');
+        const backBtn = document.getElementById('backBtn');
+        const closeBlogBtn = document.getElementById('closeBlogBtn');
+
+        // Open main mobile menu
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            menuBtn.classList.add('hidden');
+        });
+
+        // Close main mobile menu
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        });
+
+        // Open blog submenu from main menu
+        mobileBlogBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileBlogMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Back button - return to main menu
+        backBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Close blog menu completely
+        closeBlogBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        });
+
+        // Close mobile menu when clicking on non-blog links
+        document.querySelectorAll('.mobile-menu a:not(#mobileBlogBtn)').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuBtn.classList.remove('hidden');
+            });
+        });
+
+        // Close blog menu when clicking on blog links
+        document.querySelectorAll('.mobile-blog-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBlogMenu.classList.remove('active');
+                menuBtn.classList.remove('hidden');
+            });
+        });
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add stagger animation to mobile menu items
+        document.querySelectorAll('.mobile-menu ul li').forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+            item.style.opacity = '0';
+        });
+
+        // Add stagger animation to blog menu items
+        document.querySelectorAll('.mobile-blog-menu ul li').forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+            item.style.opacity = '0';
+        });
+    </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
