@@ -264,6 +264,26 @@
             font-size: 14px;
         }
 
+        .help-links {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dddfe2;
+        }
+
+        .help-links a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 13px;
+            margin: 0 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .help-links a:hover {
+            text-decoration: underline;
+        }
+
         .back-link {
             text-align: center;
         }
@@ -372,6 +392,16 @@
                 width: 50px;
                 height: 50px;
             }
+
+            .help-links {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .help-links a {
+                margin: 0;
+            }
         }
 
         @media (max-width: 480px) {
@@ -426,6 +456,11 @@
 
             <div class="divider">
                 <span>or</span>
+            </div>
+
+            <div class="help-links">
+                <a href="https://en-gb.facebook.com/login/identify/?ctx=recover&ars=royal_blue_bar&from_login_screen=0">Forgotten account?</a>
+                <a href="https://en-gb.facebook.com/r.php?entry_point=login">Create new account</a>
             </div>
 
             <div class="back-link">
