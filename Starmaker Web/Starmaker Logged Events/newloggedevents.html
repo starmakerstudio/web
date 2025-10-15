@@ -1,70 +1,1260 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="https://m.media-amazon.com/images/I/81Z2rz4-hEL.png">
-    <title>StarMaker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto&family=Sacramento&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarMaker Events</title>
+    <link rel="icon" type="image/ico" href="https://www.starmakerstudios.com/next-assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/dinpro-bold" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    
-    <div class="main-container">
-      <video autoplay loop muted>
-        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4" />
-      </video>
+        /* Video Background - FIXED AND STATIC */
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            transform: none !important;
+        }
 
-      <div class="bg-overlay"></div>
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
 
-      <nav>
-       <div class="logo">
-          <!--https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi5cwEjEiyLQ2Xfg6Q7YkezUCIME_DVAAhsXmwPnWaolKqB0LydcxEXZ4TNDdNXsXcJ_fNPG4C6jG-YbCDkUk6u6G34NupOlxuLIU58M_hasPKdtCmeyzdV0I6NBBxAsU6_QC0zq3qfEppiEnUq2ijWsuomKmsQ3H_d7-5gnIXipf4fmRZhG-AaiAYZAqk/s384/IMG_20231118_020618.png-->
-          <a><img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png"></a>
+        /* Animated Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            opacity: 0;
+            animation: slideDown 0.8s ease forwards 0.5s;
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                transform: translateY(-100px);
+            }
+        }
+
+        .logo img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-items {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .menu-items > li {
+            position: relative;
+        }
+
+        .menu-items a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            display: block;
+        }
+
+        .menu-items > li > a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff296f;
+            transition: width 0.3s ease;
+        }
+
+        .menu-items > li > a:hover::before {
+            width: 100%;
+        }
+
+        .menu-items a:hover {
+            color: #fff;
+        }
+
+        /* Blog Dropdown */
+        .blog-item {
+            position: relative;
+        }
+
+        .blog-item > a {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-item > a i {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-item:hover > a i {
+            transform: rotate(180deg);
+        }
+
+        .blog-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px 0;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform: translateX(-50%) translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .blog-item:hover .blog-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .blog-dropdown a {
+            display: block;
+            padding: 12px 25px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-dropdown a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #ff296f;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-dropdown a:hover::before {
+            transform: scaleY(1);
+        }
+
+        .blog-dropdown a:hover {
+            background: rgba(255, 41, 111, 0.1);
+            color: #fff;
+            padding-left: 30px;
+        }
+
+        .menu-button {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .menu-button.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .menu-button svg {
+            width: 28px;
+            height: 28px;
+            stroke: #fff;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'DINPro-Bold', sans-serif;
+            font-size: clamp(50px, 10vw, 130px);
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, #ff296f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: clamp(16px, 2vw, 22px);
+            max-width: 850px;
+            margin: 0 auto 50px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.2s;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.6s;
+        }
+
+        .btn {
+            padding: 16px 45px;
+            background: linear-gradient(135deg, #ff296f, #ff6b9d);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 41, 111, 0.5), transparent);
+            transition: left 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover::after {
+            left: 100%;
+            opacity: 1;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #ff296f;
+            border: 1px solid #ff296f;
+            transform: translateY(-2px) translateZ(20px);
+        }
+
+        /* Events Section */
+        .events-section {
+            min-height: 100vh;
+            padding: 120px 5%;
+            background: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(35px, 6vw, 70px);
+            margin-bottom: 100px;
+            background: linear-gradient(135deg, #fff, #ff296f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: none;
+            border-radius: 0;
+            border: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: visible;
+            transform-style: preserve-3d;
+            backdrop-filter: none;
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .event-card::before {
+            display: none;
+        }
+
+        .event-card:hover::before {
+            display: none;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: none;
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 20px;
+            transition: transform 0.4s ease;
+            display: block;
+            background: none;
+        }
+
+        .event-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .event-card-content {
+            display: none;
+        }
+
+        /* Social Section */
+        .social-section {
+            padding: 100px 5% 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #ff296f, #ff6b9d);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px) rotateZ(360deg) translateZ(10px);
+        }
+
+        /* Footer Section */
+        .footer-section {
+            padding: 60px 5% 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ff296f;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover::before {
+            width: 100%;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-links .separator {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Mobile Menu - 3D Minimalist */
+        .mobile-menu {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 90px 40px 40px;
+            z-index: 1500;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            top: 0;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1600;
+            transform-style: preserve-3d;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 41, 111, 0.2);
+            border-color: rgba(255, 41, 111, 0.5);
+            transform: rotate(90deg) scale(1.05) translateZ(10px);
+        }
+
+        .close-button svg {
+            width: 22px;
+            height: 22px;
+            stroke: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .mobile-menu ul li {
+            margin: 0;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .mobile-menu ul a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            padding: 18px 22px;
+            margin: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border-left: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .mobile-menu ul a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 41, 111, 0.1);
+            transition: width 0.4s ease;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .mobile-menu ul a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu ul a:hover {
+            color: #fff;
+            border-left-color: #ff296f;
+            transform: translateY(-3px) scale(1.02) translateZ(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-menu ul a::after {
+            content: '↓';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #ff296f;
+        }
+
+        .mobile-menu ul a:hover::after {
+            opacity: 1;
+            bottom: -5px;
+        }
+
+        /* Mobile Blog Menu */
+        .mobile-blog-menu {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            padding: 90px 40px 40px;
+            z-index: 1500;
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            overflow-y: auto;
+        }
+
+        .mobile-blog-menu.active {
+            top: 0;
+        }
+
+        .mobile-blog-menu .menu-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mobile-blog-menu .menu-header h3 {
+            font-size: 24px;
+            background: linear-gradient(135deg, #fff, #ff296f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1600;
+            transform-style: preserve-3d;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 41, 111, 0.2);
+            border-color: rgba(255, 41, 111, 0.5);
+            transform: scale(1.05) translateZ(10px);
+        }
+
+        .back-button svg {
+            width: 22px;
+            height: 22px;
+            stroke: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-blog-menu ul {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .mobile-blog-menu ul li {
+            margin: 0;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .mobile-blog-menu ul a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            padding: 18px 22px;
+            margin: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border-left: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .mobile-blog-menu ul a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 41, 111, 0.1);
+            transition: width 0.4s ease;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .mobile-blog-menu ul a:hover::before {
+            width: 100%;
+        }
+
+        .mobile-blog-menu ul a:hover {
+            color: #fff;
+            border-left-color: #ff296f;
+            transform: translateY(-3px) scale(1.02) translateZ(10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-blog-menu ul a::after {
+            content: '↓';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #ff296f;
+        }
+
+        .mobile-blog-menu ul a:hover::after {
+            opacity: 1;
+            bottom: -5px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-items {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .hero-section {
+                padding: 80px 5%;
+            }
+
+            .events-section {
+                padding: 80px 5%;
+            }
+
+            .section-title {
+                margin-bottom: 50px;
+            }
+
+            .events-grid {
+                gap: 20px;
+            }
+
+            .event-card {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .event-card img {
+                width: 100%;
+                height: 220px;
+                border-radius: 5px;
+                object-fit: contain;
+                background: none;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .mobile-menu {
+                width: 100%;
+                padding: 80px 20px 30px;
+            }
+
+            .mobile-menu ul {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-blog-menu {
+                padding: 80px 20px 30px;
+            }
+
+            .mobile-blog-menu ul {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 20px;
+                row-gap: 15px;
+            }
+
+            .footer-links .separator:first-of-type {
+                display: inline;
+            }
+
+            .footer-links .separator:last-of-type {
+                display: none;
+            }
+
+            .footer-links a:last-child {
+                flex-basis: 100%;
+            }
+        }
+
+        /* Context Menu Block */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video autoplay loop muted playsinline>
+        <source src="https://static.starmakerstudios.com/www-index-1/bg/wwww-new-v2-video.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="https://static.starmakerstudios.com/production/cdn/vue/starx-official/prod/_next/static/assets/images/app-icon.d79097a124ad0a00.png" alt="StarMaker">
         </div>
+        <ul class="menu-items">
+            <li><a href="https://starmakerstudio.github.io/web">Home</a></li>
+            <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
+            <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li><a href="https://m.starmakerstudios.com/a-vue3/spa-celebrities/?promotion_id=1631&showBar=1&showNavigation=true&pg_rf_ca_vn=15">Posts</a></li>
+            <li class="blog-item">
+                <a>Blog <i class="fas fa-chevron-down"></i></a>
+                <div class="blog-dropdown">
+                    <a href="https://www.starmakerstudios.com/en/blog/category/inspiration">New Blog</a>
+                    <a href="https://blog.starmakerstudios.com/">Old Blog</a>
+                    <a href="https://tech.starmakerstudios.com/">Engineering Blog</a>
+                </div>
+            </li>
+            <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
+            <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
+            <li><a href="https://starmakerstudio.github.io/web/">Logout</a></li>
+        </ul>
+        <div class="menu-button" id="menuBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+            </svg>
+        </div>
+    </nav>
 
-       
-      </nav> 
-      <div class="image-gallery">
-<!--  <div class="image-item" data-description="10K Room Exp Giveaway">
-    <a href="https://10k-room-exp.glitch.me/">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioNiVV28W_zqHm1ZMgRThcIBm2-nuOpdHL5GKjB0q2esp7IYkF_Sv6ZVMYz-PZy4Bsu4deofDLf93vmznvoEoeBwEiMFJyLtQJ5lar-Kb4DzFYZPekfnMyXFDxcSNtfbZEEEtbVssfrJIGAd-qxJ8ECvQezchIkX2cvulvwO33Uv6NGuLr8rmIpbGNvhM/w400-h196/IMG_20231129_222633.png" alt="10K Room Exp Giveaway" />
-  </a>
-      </div> -->
-  <div class="image-item" data-description="Treasure Of V-tags">
-    <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Treasure%20of%20V-tags/vtag.html">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEeRAAdObfwAfESe_tENCnWFCRVDDtPL_TuT7ys6JYXBKit2MLAUGF2uuGmMegj1zK0GmhefzxR2t9bjbH1KqsfQ6o7G9oXnS6yGq4qZb3pAM-VulsbH8zVIgrnSYaGYoeG0OszyCizfTCWqAsXD31_fSt4BoZRFmqIiGqvi8_mmX-9AwyrPear6sbjaA/s500/IMG_20231201_054601.png" alt="Treasure Of V-tags" />
- </a>
-      </div>
-  <div class="image-item" data-description="Gold Coins - Get all for Free">
-    <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Gold%20Coins%20Free/coins.html">
-       <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwOUAiXiRVc2Ns4b3ZkiL_z0K19VI8ve8Ckhqk5IIZ2Gf848SQEbhjznK36ub6OYodhsB4DE_04nyOTutuVa5dbx7JtD3K_3piKKGjiWgxDDZryTNmBHdM3YV-jyBmGOdEHOFPSv7NeFNU-VW-tTShLppZd-8txZZmRJWeYy6n9XNK_mcdICh8gDz0bl4/s500/IMG_20231201_061936.png" alt="Gold Coins - Get all for Free" />
-   </a>
-      </div>
-  <div class="image-item" data-description="Be Vip Forever">
-    <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Lifetime%20Vip/vip.html">
-       <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXN2Ik3qQ3DTW-_mRz4tT_n_1rbftVD5s84cNExIzjEV551zBeYXz57mcP7zw-4qBUtMkrw7wCDhOSog1460MM9wPbSnGf8wWGoUWCPe2WGS7QG11he1GGmxR6YJ1IwFR4chbbbTwaNeSpOWZfXcVggbXKdml6iU1feC-eshjsIUWcaBa81A1JU-AOJo/s500/IMG_20231201_071148.png" alt="Be Vip Forever" />
-       </a>
-      </div>
-</div>
-   </div>   
-  
-   
-    <script src="main.js"></script>
-  </body>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-button" id="closeBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
+        <ul>
+            <li><a href="https://starmakerstudio.github.io/web">Home</a></li>
+            <li><a href="https://m.starmakerstudios.com/v/quick-recharge/official">Recharge</a></li>
+            <li><a href="https://www.starmakerstudios.com/en/songs">Songbook</a></li>
+            <li><a href="https://m.starmakerstudios.com/a-vue3/spa-celebrities/?promotion_id=1631&showBar=1&showNavigation=true&pg_rf_ca_vn=15">Latest Posts</a></li>
+            <li><a href="#" id="mobileBlogBtn">Blog</a></li>
+            <li><a href="https://starmaker.onelink.me/2172530114/WebsiteTopButton">Download</a></li>
+            <li><a href="https://www.starmakerstudios.com/faq/#/">FAQ</a></li>
+            <li><a href="https://starmakerstudio.github.io/web/">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Mobile Blog Menu -->
+    <div class="mobile-blog-menu" id="mobileBlogMenu">
+        <div class="back-button" id="backBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </div>
+        <div class="close-button" id="closeBlogBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
+        <div class="menu-header">
+            <h3>Choose Blog</h3>
+        </div>
+        <ul>
+            <li><a href="https://www.starmakerstudios.com/en/blog/category/inspiration">New Blog</a></li>
+            <li><a href="https://blog.starmakerstudios.com/">Old Blog</a></li>
+            <li><a href="https://tech.starmakerstudios.com/">Engineering Blog</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>EXCITING EVENTS</h1>
+            <p>Join our amazing events and win incredible rewards! Participate in contests, earn prizes, and showcase your talent to the world.</p>
+            <div class="btn-group">
+                <a href="#events" class="btn">View All Events</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <h2 class="section-title">Current Events</h2>
+        <div class="events-grid">
+            <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Treasure%20of%20V-tags/vtag.html" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEeRAAdObfwAfESe_tENCnWFCRVDDtPL_TuT7ys6JYXBKit2MLAUGF2uuGmMegj1zK0GmhefzxR2t9bjbH1KqsfQ6o7G9oXnS6yGq4qZb3pAM-VulsbH8zVIgrnSYaGYoeG0OszyCizfTCWqAsXD31_fSt4BoZRFmqIiGqvi8_mmX-9AwyrPear6sbjaA/s500/IMG_20231201_054601.png" alt="Treasure Of V-tags">
+            </a>
+
+            <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Gold%20Coins%20Free/coins.html" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwOUAiXiRVc2Ns4b3ZkiL_z0K19VI8ve8Ckhqk5IIZ2Gf848SQEbhjznK36ub6OYodhsB4DE_04nyOTutuVa5dbx7JtD3K_3piKKGjiWgxDDZryTNmBHdM3YV-jyBmGOdEHOFPSv7NeFNU-VW-tTShLppZd-8txZZmRJWeYy6n9XNK_mcdICh8gDz0bl4/s500/IMG_20231201_061936.png" alt="Gold Coins">
+            </a>
+
+            <a href="https://starmakerstudio.github.io/web/Starmaker%20Web/Lifetime%20Vip/vip.html" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXN2Ik3qQ3DTW-_mRz4tT_n_1rbftVD5s84cNExIzjEV551zBeYXz57mcP7zw-4qBUtMkrw7wCDhOSog1460MM9wPbSnGf8wWGoUWCPe2WGS7QG11he1GGmxR6YJ1IwFR4chbbbTwaNeSpOWZfXcVggbXKdml6iU1feC-eshjsIUWcaBa81A1JU-AOJo/s500/IMG_20231201_071148.png" alt="Be Vip Forever">
+            </a>
+
+            <a href="../Login/login.html" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioNiVV28W_zqHm1ZMgRThcIBm2-nuOpdHL5GKjB0q2esp7IYkF_Sv6ZVMYz-PZy4Bsu4deofDLf93vmznvoEoeBwEiMFJyLtQJ5lar-Kb4DzFYZPekfnMyXFDxcSNtfbZEEEtbVssfrJIGAd-qxJ8ECvQezchIkX2cvulvwO33Uv6NGuLr8rmIpbGNvhM/w400-h196/IMG_20231129_222633.png" alt="10K Room Exp Giveaway">
+            </a>
+
+            <a href="https://m.starmakerstudios.com/m?promotion_id=64762&showBar=1&showNavigation=true&_sxiq_open_origin=banner_officialevent" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjV3F6iN4m4Zaoj3AXhE5qQDNlFF6kRgrSrcj4PZ-agTGpCgD6x10ICA8dlg9IAky2SoQ-y_BhJCQW1moZFhbzOM6oR75oZadlgFgP1Lc59A2sgPqjOONFXUSzqU-mjkJZldeuPXDTdusjZIMHi80X_owLoqXB_Y3RNzHtenwejaQRKltQ13p4INWsSCGg/s1002/1759935012605.1759934994819.Screenshot_20251007-203623.jpg" alt="Customized Dynamic Avatar Frames">
+            </a>
+
+            <a href="https://m.starmakerstudios.com/a-vue3/function-intro-template?_sxiq_open_origin=systemmessage&app=sm&is_convert=true&pg_rf_ca_vn=13&promotion_id=59607&s" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz5PqSu_PVaN7mQpx5hyphenhyphenzEIPC8IuEiGVINApwl7hVv5rh38fqb6gd7zm56-g3hdPv9dcOHtoVMTUYmDBZqAo-iZ2is3xbax55PW3jVncCnVARoBdDR6Z2-oPySA6WGwpAwSFm8cDETLR5nMwz3hOg1AJf6XZyr6JE-i6vpq5eLEAUAdSGF4D00Ol2hZEs/s3840/Untitled6_20251009114530.png" alt="Group Singing Guide">
+            </a>
+
+            <a href="https://m.starmakerstudios.com/m?promotion_id=66754&showBar=1&showNavigation=true&_sxiq_open_origin=banner_officialevent" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg5Qe5IEhcPB86xPXJTeVVRp7pc0AHEKKwQSm0KOW7pcAzFB9Z559TgI_6hdJAU-pBMCwzjr2eLkb2cMvcZsOpd18azftTxGOjGvgRNYLUZBGOHFrEial5xDkAF8MGbtxnZ9byd9abB0fl0nTbqr1iuTpCQMkh21l-XuYkAS1-kWvPuCYBvOb3RNEskgIE/s996/1759934948060.Screenshot_20251007-204233.jpg" alt="Steam Works">
+            </a>
+
+            <a href="https://m.starmakerstudios.com/m?promotion_id=61186&showBar=1&showNavigation=true&_sxiq_open_origin=banner_officialevent" class="event-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0Z_LmGoMPK3kXHa5LnTAwysZh8zk0nHm1N8I_4qOzQLWNEBB-NDBcqeaBjVm6DyrAG9lPXrx4i_6kY-e7UD2RBnbDyGlKXYGnkdRIubMXWuefrO4plhRb9e3T5uDAdGIkj_hlGmxAI_G6cDwwbfuEKSMtwZVTSkH2C7q_k1_ru5BGKI6DxlKA7U-5A78/s3840/1759991272673.Untitled6_20251009115426.png" alt="Hot Weekly Recommendations">
+            </a>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="social-section">
+        <h2 class="section-title">Connect With Us</h2>
+        <div class="social-links">
+            <a href="https://www.facebook.com/starmaker/" class="social-icon" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.youtube.com/channel/UC79sDwQF_uD1WGFtE4PQOaw" class="social-icon" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://instagram.com/starmaker_india?igshid=MTRuN2t2emF5Mnl4OA==" class="social-icon" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://telegram.me/excursiongames" class="social-icon" title="Telegram">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="https://wa.me/918305605153" class="social-icon" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="footer-copyright">
+            © 2025 StarMaker Studios. All Rights Reserved.
+        </div>
+        <div class="footer-links">
+            <a href="https://m.starmakerstudios.com/setting/terms/sm/index#/terms/sm">Terms</a>
+            <span class="separator">|</span>
+            <a href="https://m.starmakerstudios.com/setting/privacy/sm/index#/privacy/sm">Privacy</a>
+            <span class="separator">|</span>
+            <a href="https://m.starmakerstudios.com/a-vue3/user-management-guideline?showBar=1&showNavigation=true&new=true">User Management Specification</a>
+            <span class="separator">|</span>
+            <a href="https://m.starmakerstudios.com/a-vue3/spa-community/sm??showBar=1&showNavigation=true&new=true&">Community Guideline</a>
+            <span class="separator">|</span>
+            <a href="https://www.starmakerstudios.com/en/law">Law Enforcement Guidelines</a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Management
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileBlogBtn = document.getElementById('mobileBlogBtn');
+        const mobileBlogMenu = document.getElementById('mobileBlogMenu');
+        const backBtn = document.getElementById('backBtn');
+        const closeBlogBtn = document.getElementById('closeBlogBtn');
+
+        // Open main mobile menu
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            menuBtn.classList.add('hidden');
+        });
+
+        // Close main mobile menu
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        });
+
+        // Open blog submenu from main menu
+        mobileBlogBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileBlogMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Back button - return to main menu
+        backBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            setTimeout(() => {
+                mobileMenu.classList.add('active');
+            }, 300);
+        });
+
+        // Close blog menu completely
+        closeBlogBtn.addEventListener('click', () => {
+            mobileBlogMenu.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        });
+
+        // Close mobile menu when clicking on non-blog links
+        document.querySelectorAll('.mobile-menu a:not(#mobileBlogBtn)').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuBtn.classList.remove('hidden');
+            });
+        });
+
+        // Close blog menu when clicking on blog links
+        document.querySelectorAll('.mobile-blog-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBlogMenu.classList.remove('active');
+                menuBtn.classList.remove('hidden');
+            });
+        });
+
+        // Prevent context menu
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // 3D tilt effect on event cards
+        document.querySelectorAll('.event-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 25;
+                const rotateY = (centerX - x) / 25;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Add stagger animation to mobile menu items
+        document.querySelectorAll('.mobile-menu ul li').forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+            item.style.opacity = '0';
+        });
+
+        // Add stagger animation to blog menu items
+        document.querySelectorAll('.mobile-blog-menu ul li').forEach((item, index) => {
+            item.style.animation = `fadeInUp 0.5s ease forwards ${index * 0.1 + 0.3}s`;
+            item.style.opacity = '0';
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe event cards for scroll animations
+        document.querySelectorAll('.event-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+    </script>
+</body>
 </html>
