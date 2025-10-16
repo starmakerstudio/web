@@ -846,7 +846,7 @@
                 if (coinImageLoaded && images['coin']) {
                     try {
                         const iconSize = radius * 0.2;
-                        const iconDist = radius * 0.5;
+                        const iconDist = radius * 0.4;
                         const iconX = iconDist - iconSize / 2;
                         const iconY = -iconSize / 2;
                         ctx.drawImage(images['coin'], iconX, iconY, iconSize, iconSize);
@@ -867,8 +867,8 @@
                 ctx.textBaseline = 'middle';
                 ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
                 ctx.lineWidth = 0.8;
-                ctx.strokeText(coin.amount, radius * 0.65, 0);
-                ctx.fillText(coin.amount, radius * 0.65, 0);
+                ctx.strokeText(coin.amount, radius * 0.72, 0);
+                ctx.fillText(coin.amount, radius * 0.72, 0);
                 
                 ctx.restore();
             });
