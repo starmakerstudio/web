@@ -856,10 +856,18 @@
                 }
 
                 // Draw coin amount text
-                ctx.fillStyle = 'rgba(100, 100, 100, 0.8)';
-                ctx.font = 'bold ' + (radius * 0.12) + 'px Arial';
+                const gradient = ctx.createLinearGradient(0, -15, 0, 15);
+                gradient.addColorStop(0, '#FFD700');
+                gradient.addColorStop(0.5, '#FFED4E');
+                gradient.addColorStop(1, '#FFFACD');
+                
+                ctx.fillStyle = gradient;
+                ctx.font = 'bold ' + (radius * 0.14) + 'px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
+                ctx.strokeStyle = 'rgba(184, 134, 11, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.strokeText(coin.amount, radius * 0.65, 0);
                 ctx.fillText(coin.amount, radius * 0.65, 0);
                 
                 ctx.restore();
