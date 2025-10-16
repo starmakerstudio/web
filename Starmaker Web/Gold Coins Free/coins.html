@@ -783,17 +783,19 @@
         let currentRotation = 0;
         let isSpinning = false;
         const images = {};
-        let imagesLoaded = 0;
+        let coinImageLoaded = false;
 
         const coinIcon = new Image();
         coinIcon.crossOrigin = "anonymous";
         coinIcon.onload = () => {
             images['coin'] = coinIcon;
-            imagesLoaded++;
-            if (imagesLoaded === 1) {
-                resizeCanvas();
-                window.addEventListener('resize', resizeCanvas);
-            }
+            coinImageLoaded = true;
+            drawWheel();
+        };
+        coinIcon.onerror = () => {
+            console.log('Coin icon failed to load, will show text only');
+            coinImageLoaded = false;
+            drawWheel();
         };
         coinIcon.src = 'https://cdn1.codashop.com/S/content/common/images/denom-image/Starmaker/Starmaker150x150.png';
 
@@ -804,6 +806,9 @@
             canvas.height = size;
             drawWheel();
         }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
         function drawWheel() {
             if (!canvas.width) return;
@@ -837,21 +842,25 @@
                 const middleAngle = startAngle + anglePerSegment / 2;
                 ctx.rotate(middleAngle);
                 
-                // Draw coin icon
-                if (images['coin']) {
-                    const iconSize = radius * 0.25;
-                    const iconDist = radius * 0.5;
-                    const iconX = iconDist - iconSize / 2;
-                    const iconY = -iconSize / 2;
-                    ctx.drawImage(images['coin'], iconX, iconY, iconSize, iconSize);
+                // Draw coin icon if loaded
+                if (coinImageLoaded && images['coin']) {
+                    try {
+                        const iconSize = radius * 0.2;
+                        const iconDist = radius * 0.5;
+                        const iconX = iconDist - iconSize / 2;
+                        const iconY = -iconSize / 2;
+                        ctx.drawImage(images['coin'], iconX, iconY, iconSize, iconSize);
+                    } catch (e) {
+                        console.log('Error drawing image');
+                    }
                 }
 
                 // Draw coin amount text
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-                ctx.font = 'bold ' + (radius * 0.15) + 'px Arial';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+                ctx.font = 'bold ' + (radius * 0.18) + 'px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(coin.amount, radius * 0.7, 0);
+                ctx.fillText(coin.amount, radius * 0.65, 0);
                 
                 ctx.restore();
             });
