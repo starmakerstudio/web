@@ -857,15 +857,15 @@
 
                 // Draw coin amount text
                 const gradient = ctx.createLinearGradient(0, -15, 0, 15);
-                gradient.addColorStop(0, '#FFD700');
-                gradient.addColorStop(0.5, '#FFED4E');
-                gradient.addColorStop(1, '#FFFACD');
+                gradient.addColorStop(0, '#333333');
+                gradient.addColorStop(0.5, '#666666');
+                gradient.addColorStop(1, '#CCCCCC');
                 
                 ctx.fillStyle = gradient;
                 ctx.font = 'bold ' + (radius * 0.14) + 'px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.strokeStyle = 'rgba(128, 128, 128, 0.4)';
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
                 ctx.lineWidth = 0.8;
                 ctx.strokeText(coin.amount, radius * 0.65, 0);
                 ctx.fillText(coin.amount, radius * 0.65, 0);
