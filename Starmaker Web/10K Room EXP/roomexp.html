@@ -575,12 +575,12 @@
         document.addEventListener('contextmenu', e => e.preventDefault());
 
         const vips = [
-            { duration: '500 Exp', message: 'Claim your 500 Exp now!', color: '#ffccb3' },
-            { duration: '1K Exp', message: 'Claim your 1K Exp now!', color: '#b3e6ff' },
-            { duration: '3K Exp', message: 'Claim your 3K Exp now!', color: '#d4f5d4' },
-            { duration: '5K Exp', message: 'Claim your 5K Exp now!', color: '#ffffcc' },
-            { duration: '8.5K Exp', message: 'Claim your 8.5K Exp now!', color: '#e6b3ff' },
-            { duration: '10K Exp', message: 'Claim your 10K Exp now!', color: '#ffd4e5' }
+            { duration: '500', message: 'Claim your 500 Exp now!', color: '#ffccb3' },
+            { duration: '1K', message: 'Claim your 1K Exp now!', color: '#b3e6ff' },
+            { duration: '3K', message: 'Claim your 3K Exp now!', color: '#d4f5d4' },
+            { duration: '5K', message: 'Claim your 5K Exp now!', color: '#ffffcc' },
+            { duration: '8.5K', message: 'Claim your 8.5K Exp now!', color: '#e6b3ff' },
+            { duration: '10K', message: 'Claim your 10K Exp now!', color: '#ffd4e5' }
         ];
 
         const canvas = document.getElementById('wheel');
@@ -662,7 +662,7 @@
                 }
                 
                 ctx.fillStyle = '#333';
-                ctx.font = 'bold ' + (radius * 0.07) + 'px Arial';
+                ctx.font = 'bold ' + (radius * 0.1) + 'px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(vip.duration, radius * 0.68, 0);
