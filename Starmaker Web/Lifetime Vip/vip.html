@@ -596,6 +596,14 @@
 
         let currentRotation = 0;
         let isSpinning = false;
+        let vipIcon = new Image();
+        let iconLoaded = false;
+
+        vipIcon.onload = () => {
+            iconLoaded = true;
+            drawWheel();
+        };
+        vipIcon.src = 'https://cdn.glitch.global/125983ca-b6c6-4e1e-bba0-b269566c651c/recorderlib_song_edit_vip_diamond.png?v=1713287062492';
 
         function resizeCanvas() {
             const container = canvas.parentElement;
@@ -639,6 +647,19 @@
                 ctx.save();
                 const middleAngle = startAngle + anglePerSegment / 2;
                 ctx.rotate(middleAngle);
+
+                // Draw VIP icon if loaded
+                if (iconLoaded) {
+                    try {
+                        const iconSize = radius * 0.2;
+                        const iconDist = radius * 0.4;
+                        const iconX = iconDist - iconSize / 2;
+                        const iconY = -iconSize / 2;
+                        ctx.drawImage(vipIcon, iconX, iconY, iconSize, iconSize);
+                    } catch (e) {
+                        console.log('Error drawing icon');
+                    }
+                }
                 
                 ctx.fillStyle = '#333';
                 ctx.font = 'bold ' + (radius * 0.12) + 'px Arial';
@@ -760,5 +781,6 @@
     </script>
 </body>
 </html>
+
 
 
